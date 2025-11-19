@@ -104,11 +104,11 @@ Once running, the program will display a live timetable in your terminal:
 
 
 
-    If no trams are scheduled to arrive:
+    If no Vehicles are scheduled to arrive:
 
 
-    Real-Time Tram Timetable for Stops: Zsigmond tér (Next 5 Minutes):
-    No trams arriving within the next 5 minutes.
+    Real-Time Vehicle Timetable for Stops: Zsigmond tér (Next 5 Minutes):
+    No Vehicles arriving within the next 5 minutes.
 
 
 🛠️ Configuration
@@ -125,18 +125,18 @@ Customizing Stops
     Ensure the correct spelling of the stop name.
     E.g., type Deák Ferenc tér instead of Deak.
     Make sure stops.txt is in the project directory.
-    Issue: "No trams arriving"
-    Check if there are any trams scheduled to arrive at the time.
+    Issue: "No Vehicles arriving"
+    Check if there are any Vehicles scheduled to arrive at the time.
     Ensure your BKK API Key is functioning and has permission to access the GTFS-RT feed.
     You can test this by accessing:
     https://go.bkk.hu/api/query/v1/ws/gtfs-rt/full/TripUpdates.pb .
-    Issue: Missing Tram Numbers
-    If tram numbers (route_short_name) don’t display:
+    Issue: Missing Vehicle Numbers
+    If Vehicle numbers (route_short_name) don’t display:
 
     Ensure routes.txt is correctly placed and matches BKK's GTFS data.
 
     
 🎯 Future Features
-    Web Integration: Display live tram boards on a web dashboard (e.g., via Flask or Django).
+    Web Integration: Display live Vehicle boards on a web dashboard (e.g., via Flask or Django).
     Full Transport Monitoring: Support stops across multiple BKK modes (bus, metro, etc.).
     Delay Notifications: Highlight delays or early arrivals by comparing static schedules to actual times.
