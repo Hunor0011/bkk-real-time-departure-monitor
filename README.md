@@ -84,7 +84,7 @@ Once running, the program will display a live timetable in your terminal:
 
     Direction: Inbound
     ╒═══════════════╤═════════════════════════╤══════════════╤════════════════╤═══════════════════╕
-    │   Tram Number │ Destination             │ Stop Name    │ Arrival Time   │ Time to Arrival   │
+    │Vehicle Number │ Destination             │ Stop Name    │ Arrival Time   │ Time to Arrival   │
     ╞═══════════════╪═════════════════════════╪══════════════╪════════════════╪═══════════════════╡
     │             9 │ Óbuda, Bogdáni út       │ Zsigmond tér │ 18:03:59       │ 0:00:56           │
     ├───────────────┼─────────────────────────┼──────────────┼────────────────┼───────────────────┤
@@ -93,7 +93,7 @@ Once running, the program will display a live timetable in your terminal:
     
     Direction: Outbound
     ╒═══════════════╤═════════════════════════╤══════════════╤════════════════╤═══════════════════╕
-    │   Tram Number │ Destination             │ Stop Name    │ Arrival Time   │ Time to Arrival   │
+    │ Vehicle Number│ Destination             │ Stop Name    │ Arrival Time   │ Time to Arrival   │
     ╞═══════════════╪═════════════════════════╪══════════════╪════════════════╪═══════════════════╡
     │             9 │ Kőbánya alsó vasútáll.  │ Zsigmond tér │ 18:03:03       │ 0:00:00           │
     ├───────────────┼─────────────────────────┼──────────────┼────────────────┼───────────────────┤
