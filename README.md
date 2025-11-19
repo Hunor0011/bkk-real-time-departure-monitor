@@ -70,7 +70,7 @@ Step 5: Input Your BKK API Key
 🏃 Usage
 To start the real-time tram monitor, run the main Python script:
 
-    python bkk_departures.py
+    python3 bkk_departures.py
 
 
 You'll be prompted to input a stop name. For example:  Enter a stop name to search (e.g., Zsigmond tér): 
