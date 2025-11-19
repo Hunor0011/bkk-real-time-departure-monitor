@@ -26,6 +26,7 @@ Here’s what the project directory looks like after setup:
       ├── README.md          # Documentation for the project
       ├── routes.txt         # GTFS routes file
       ├── stops.txt          # GTFS stops file
+      ├── trips.txt          # GTFS trips file
 
 ⚙️ Installation
 Follow these steps to set up the tool:
@@ -54,6 +55,7 @@ Step 4: Add Static GTFS Files
     Extract the ZIP file and locate these two files:
     routes.txt
     stops.txt
+    trips.txt
     Copy these files into the project directory.
 
 Step 5: Input Your BKK API Key
