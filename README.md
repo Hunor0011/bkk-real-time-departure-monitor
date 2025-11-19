@@ -34,7 +34,7 @@ Follow these steps to set up the tool:
 Step 1: Clone the Repository
 Clone this repository using Git:
 
-    git clone https://github.com/Hunor0011/bkk-tram-monitor.git
+    git clone https://github.com/Hunor0011/bkk-real-time-departure-monitor.git
     cd bkk-real-time-departure-monitor
 
 Step 2: Set Up a Virtual Environment
