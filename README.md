@@ -106,7 +106,7 @@ Once running, the program will display a live timetable in your terminal:
     If no Vehicles are scheduled to arrive:
 
 
-    Real-Time Vehicle Timetable for Stops: Zsigmond tér (Next 5 Minutes):
+    
     No Vehicles arriving within the next 5 minutes.
 
 
