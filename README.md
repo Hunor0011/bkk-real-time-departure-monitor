@@ -1,6 +1,6 @@
 
 🚌 BKK Real-Time Tram Monitor
-Stay on top of Budapest's tram schedule in real-time with this Python-based tool! This program fetches live data from the BKK GTFS-RT API to display a BKK-style timetable for any chosen stop. It shows the tram number, direction, arrival time, and time-to-arrival, updated every 30 seconds.
+stays on top of Budapest's tram schedule in real-time with this Python-based tool! This program fetches live data from the BKK GTFS-RT API to display a BKK-style timetable for any chosen stop. It shows the tram number, direction, arrival time, and time-to-arrival, updated every 30 seconds.
 
 🚀 Features
 Monitors in Real Time: Fetches live tram arrivals for stops in Budapest.
