@@ -1,19 +1,19 @@
 
-🚌 BKK Real-Time Tram Monitor
-stays on top of Budapest's tram schedule in real-time with this Python-based tool! This program fetches live data from the BKK GTFS-RT API to display a BKK-style timetable for any chosen stop. It shows the tram number, direction, arrival time, and time-to-arrival, updated every 30 seconds.
+🚌 BKK Real-Time Vehicle Monitor
+stays on top of Budapest's vehicle schedule in real-time with this Python-based tool! This program fetches live data from the BKK GTFS-RT API to display a BKK-style timetable for any chosen stop. It shows the vehicle number, direction, arrival time, and time-to-arrival, updated every 30 seconds.
 
 🚀 Features
 Monitors in Real Time: Fetches live vehicle arrivals for stops in Budapest.
 Customizable Stops: Easily search for specific stops to monitor (e.g., "Zsigmond tér").
-Clear Timetable: Displays tram numbers, destinations, and accurate time-to-arrival details.
-Fast and Refreshing: Updates every 30 seconds to display the latest tram info.
+Clear Timetable: Displays vehicle numbers, destinations, and accurate time-to-arrival details.
+Fast and Refreshing: Updates every 30 seconds to display the latest vehicle info.
 
 🧩 Prerequisites
 Before using the tool, ensure you have the following:
 
 Python 3.9+ installed.
 BKK GTFS-RT API Key:
-You can request an API key via the BKK Developer Portal . This key will give you access to real-time tram arrival data.
+You can request an API key via the BKK Developer Portal . This key will give you access to real-time vehicle arrival data.
 GTFS Static Files (routes.txt, stops.txt):
 Download the GTFS feed from BKK GTFS Feed to access static information about routes and stops.
 
@@ -68,7 +68,7 @@ Step 5: Input Your BKK API Key
 
 
 🏃 Usage
-To start the real-time tram monitor, run the main Python script:
+To start the real-time vehicle monitor, run the main Python script:
 
     python3 bkk_departures.py
 
@@ -82,7 +82,7 @@ You'll be prompted to input a stop name. For example:  Enter a stop name to sear
 ⏳ Real-Time Timetable Output
 Once running, the program will display a live timetable in your terminal:
 
-    Real-Time Tram Timetable for Stops: Zsigmond tér (Next 10 Minutes):
+    Real-Time vehicle Timetable for Stops: Zsigmond tér (Next 10 Minutes):
 
 
     ╒══════════════════╤══════════════════════════╤══════════════╤════════════════╤═══════════════════╕
