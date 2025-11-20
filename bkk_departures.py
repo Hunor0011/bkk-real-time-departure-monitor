@@ -6,7 +6,7 @@ from tabulate import tabulate  # For tabular display
 import time
 
 # BKK API Key and URL for GTFS-RT feed
-API_KEY = "your_actual_API_key"  # Replace with your actual API key
+API_KEY = "YOUR_API_KEY"  # Replace with your actual API key
 URL = f"https://go.bkk.hu/api/query/v1/ws/gtfs-rt/full/TripUpdates.pb?key={API_KEY}"
 
 # Static GTFS Files
@@ -15,7 +15,7 @@ STOPS_FILE = "stops.txt"    # Path to stops.txt
 TRIPS_FILE = "trips.txt"    # Path to trips.txt
 
 # Time window for arrivals (in minutes)
-TIME_WINDOW_MINUTES = 5
+TIME_WINDOW_MINUTES = 10
 
 
 def load_gtfs_static_files(routes_file, stops_file, trips_file):
@@ -51,7 +51,7 @@ def find_stops_by_name(stops_mapping, stop_name_query):
 
 
 def get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, current_time):
-    """Get a list of trams arriving at selected stops within the time window, showing direction."""
+    """Get a list of trams arriving at selected stops within the time window."""
     incoming_trams = []
     for entity in feed.entity:
         if entity.HasField("trip_update"):
@@ -66,13 +66,13 @@ def get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, curr
                     if timedelta(seconds=0) <= time_to_arrival <= timedelta(minutes=TIME_WINDOW_MINUTES):
                         route_id = trip_update.trip.route_id if trip_update.trip.route_id else "Unknown Route"
                         vehicle_number = routes_mapping.get(route_id, "Unknown")  # Get vehicle number
-                        
+
                         # Get trip_id to derive direction and destination
                         trip_id = trip_update.trip.trip_id
                         trip_info = trips_mapping.get(trip_id, {"direction_id": -1, "trip_headsign": "Unknown"})
-                        direction = "Inbound" if trip_info["direction_id"] == 1 else "Outbound"  # Derive direction
                         destination = trip_info["trip_headsign"]  # Final stop/destination
                         
+                        # Append details of this tram to the list
                         headsign = selected_stops[stop_id]["stop_name"]
                         incoming_trams.append({
                             "vehicle_number": vehicle_number,  # Vehicle number
@@ -80,74 +80,78 @@ def get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, curr
                             "stop_name": headsign,  # Stop name
                             "arrival_time": arrival_time.strftime("%H:%M:%S"),  # Predicted time
                             "time_to_arrival": str(time_to_arrival).split(".")[0],  # Time to arrival
-                            "direction": direction,  # Inbound or Outbound
                             "destination": destination  # Final destination
                         })
     return incoming_trams
 
 
 def display_real_time_board(trams):
-    """Display the real-time timetable in tabular format, grouped by direction."""
+    """Display the real-time timetable in tabular format."""
     if not trams:
-        print("No vehicles arriving within the next 5 minutes.")
+        print("No vehicles arriving within the next 10 minutes.")
         return
+
     # Sort trams by time-to-arrival
     sorted_trams = sorted(trams, key=lambda x: x["time_to_arrival"])
-    # Group by direction
-    grouped_by_direction = {"Inbound": [], "Outbound": []}
-    for tram in sorted_trams:
-        grouped_by_direction[tram["direction"]].append(tram)
-    # Display separate tables for inbound and outbound directions
-    for direction, direction_trams in grouped_by_direction.items():
-        if not direction_trams:
-            continue
-        print(f"\nDirection: {direction}")
-        table = [[
-            tram["vehicle_number"],
-            tram["destination"],
-            tram["stop_name"],
-            tram["arrival_time"],
-            tram["time_to_arrival"]
-        ] for tram in direction_trams]
-        # Define headers for the table
-        headers = ["Vehicle Number", "Destination", "Stop Name", "Arrival Time", "Time to Arrival"]
-        # Print the table for this direction
-        print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+
+    # Create a unified table with both directions combined
+    table = [[
+        tram["vehicle_number"],
+        tram["destination"],
+        tram["stop_name"],
+        tram["arrival_time"],
+        tram["time_to_arrival"]
+    ] for tram in sorted_trams]
+
+    # Define headers for the table
+    headers = ["Vehicle Number", "Destination", "Stop Name", "Arrival Time", "Time to Arrival"]
+
+    # Print the table
+    print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
 
 
 def main():
     """Main function to allow real-time monitoring of custom stops."""
     print("Loading BKK GTFS static data...\n")
     routes_mapping, stops_mapping, trips_mapping = load_gtfs_static_files(ROUTES_FILE, STOPS_FILE, TRIPS_FILE)
+
     # Ask user for stop search query
     stop_name_query = input("Enter a stop name to search (e.g., Zsigmond tér): ").strip()
     selected_stops = find_stops_by_name(stops_mapping, stop_name_query)
+
     # If no stops are found
     if not selected_stops:
         print(f"No stops found matching '{stop_name_query}'. Please try again.")
         return
+
     # Display selected stops
     print(f"\nFound {len(selected_stops)} stop(s) for '{stop_name_query}':")
     for stop_id, details in selected_stops.items():
         print(f"- Stop ID: {stop_id}, Stop Name: {details['stop_name']}")
+
     # Start the real-time monitoring
     while True:
         # Get the current time
         current_time = datetime.now()
+
         # Fetch GTFS-RT feed
         print("\nFetching real-time data...")
         feed = fetch_gtfs_rt_feed(URL)
+
         # Find incoming vehicles for the selected stops
         trams = get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, current_time)
+
         # Clear the screen for a clean refresh
         print("\033[H\033[J")
+
         # Display the real-time timetable
         stop_names = ", ".join(details["stop_name"] for details in selected_stops.values())
         print(f"Real-Time Vehicle Timetable for Stops: {stop_names} (Next {TIME_WINDOW_MINUTES} Minutes):\n")
         if trams:
             display_real_time_board(trams)
         else:
-            print("No vehicles arriving within the next 5 minutes.")
+            print("No vehicles arriving within the next 10 minutes.")
+
         # Wait before refreshing
         time.sleep(30)  # Refresh every 30 seconds
 
