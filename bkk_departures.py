@@ -19,7 +19,7 @@ TIME_WINDOW_MINUTES = 10
 
 
 def load_gtfs_static_files(routes_file, stops_file, trips_file):
-    """Load routes, stops, and trips from static GTFS files."""
+    # Load routes, stops, and trips from static GTFS files.
     # Load routes.txt to map route_id -> route_short_name (vehicle number)
     routes_df = pd.read_csv(routes_file)
     routes_mapping = routes_df.set_index("route_id")["route_short_name"].to_dict()
@@ -36,7 +36,7 @@ def load_gtfs_static_files(routes_file, stops_file, trips_file):
 
 
 def fetch_gtfs_rt_feed(url):
-    """Fetch and parse the GTFS-RT feed."""
+    # Fetch and parse the GTFS-RT feed.
     response = requests.get(url)
     feed = FeedMessage()
     feed.ParseFromString(response.content)
@@ -44,14 +44,14 @@ def fetch_gtfs_rt_feed(url):
 
 
 def find_stops_by_name(stops_mapping, stop_name_query):
-    """Find stops matching a given name query."""
+    # Find stops matching a given name query.
     selected_stops = {stop_id: details for stop_id, details in stops_mapping.items()
                       if stop_name_query.lower() in details["stop_name"].lower()}
     return selected_stops
 
 
 def get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, current_time):
-    """Get a list of trams arriving at selected stops within the time window."""
+    # Get a list of trams arriving at selected stops within the time window.
     incoming_trams = []
     for entity in feed.entity:
         if entity.HasField("trip_update"):
@@ -86,7 +86,7 @@ def get_incoming_trams(feed, routes_mapping, selected_stops, trips_mapping, curr
 
 
 def display_real_time_board(trams):
-    """Display the real-time timetable in tabular format."""
+    # Display the real-time timetable in tabular format.
     if not trams:
         print("No vehicles arriving within the next 10 minutes.")
         return
@@ -111,7 +111,7 @@ def display_real_time_board(trams):
 
 
 def main():
-    """Main function to allow real-time monitoring of custom stops."""
+    # Main function to allow real-time monitoring of custom stops.
     print("Loading BKK GTFS static data...\n")
     routes_mapping, stops_mapping, trips_mapping = load_gtfs_static_files(ROUTES_FILE, STOPS_FILE, TRIPS_FILE)
 
